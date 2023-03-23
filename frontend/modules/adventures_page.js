@@ -6,16 +6,8 @@ let adventuresCopy =""
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it ?city=bengaluru
-  //console.log(search)
-  //console.log("Search",search);
   let urlParams = new URLSearchParams(search);
   let params = urlParams.get("city");
-  // if(params==null){
-  //   params=""
-  // }else{
-  //   return params;
-  // }
-  //console.log("Parameter", params);
   return params;
 }
 
@@ -23,14 +15,11 @@ function getCityFromURL(search) {
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-  //console.log(city)
   try {
-    //var cityName = getCityFromURL(city);
     var cities = await fetch(
       config.backendEndpoint + "/adventures?city=" + city
     );
     let data = await cities.json();
-    //console.log(cities, data);
     adventuresCopy=data;
     return data;
   } catch (err) {
@@ -45,7 +34,6 @@ function addAdventureToDOM(adventures) {
   var data = document.getElementById("data");
 
   for (let i = 0; i < adventures.length; i++) {
-    //console.log("adventure", adventures[i]);
     var bannerdiv = document.createElement("div");
     bannerdiv.setAttribute("class", "col-lg-3 col-sm-6 mb-4 col-12");
 
@@ -65,15 +53,6 @@ function addAdventureToDOM(adventures) {
     cardImg.setAttribute("src", adventures[i].image);
     cardImg.setAttribute("alt", adventures[i].name);
 
-    /* <div class="card-body pb-0">
-                <div
-                  class="card-text d-lg-flex justify-content-lg-between text-center"
-                >
-                  <h5>Resort</h5>
-                  <h6>&#8377;<span class="amount-in-rupees">1200</span></h6>
-                </div>
-              </div> */
-
     var aboveDetailDiv = document.createElement("div");
     aboveDetailDiv.setAttribute("class", "card-body pb-0");
 
@@ -82,14 +61,13 @@ function addAdventureToDOM(adventures) {
       "class",
       "card-text d-lg-flex justify-content-lg-between flex-wrap  w-100"
     );
-    // var div1 = document.createElement("div");
+    
     var p1 = document.createElement("p");
     var p2 = document.createElement("p");
     p1.innerHTML = adventures[i].name;
     p2.innerHTML = ` &#8377;
     <span class="amount-in-rupees">${adventures[i].costPerHead}</span>`;
 
-    // var div2 = document.createElement("div");
     var detaildiv2 = document.createElement("div");
     detaildiv2.setAttribute(
       "class",
@@ -99,17 +77,6 @@ function addAdventureToDOM(adventures) {
     var p4 = document.createElement("p");
     p3.innerHTML = "Duration";
     p4.innerHTML = adventures[i].duration + " hours";
-
-    // div1.append(p1);
-    // div1.append(p2);
-
-    // div2.append(p3);
-    // div2.append(p4);
-
-    // detaildiv.append(p1);
-    // detaildiv.append(p2);
-    // detaildiv.append(p3);
-    // detaildiv.append(p4);
 
     carddiv.append(bandiv);
     carddiv.append(cardImg);
@@ -140,9 +107,6 @@ function filterByDuration(list, low, high) {
       newList.push(obj);
     }
   });
-  // if(newList.length!=0){
-  //   list = newList;
-  // }
   console.log("filterDuration", list, low, high);
   return newList;
 }
@@ -164,8 +128,6 @@ function filterByCategory(list, categoryList) {
   console.log("filterCategort", list, categoryList);
   return newList;
 }
-
-// filters object looks like this filters = { duration: "", category: [] };
 
 //Implementation of combined filter function that covers the following cases :
 // 1. Filter by duration only
@@ -195,14 +157,6 @@ function filterFunction(list, filters) {
     console.log(min, max);
     list = filterByDuration(list, min, max);
   }
-
-  // for (let i = 0; i < newList.length; i++) {
-  //   for (let j = 0; j < list.length; j++) {
-  //     if (newList[i].id != list[j].id) {
-  //       list.remove(j);
-  //     }
-  //   }
-  // }
   console.log("filter", list, filters);
   return list;
 }
@@ -233,36 +187,6 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-  // let category_list = document.getElementById("category-list");
-  // //let catFill = document.createElement("div");
-  
-  // console.log("pills", filters, category_list);
-  // for (let i = 0; i < filters.category.length; i++) {
-  //   let p = document.createElement("p");
-  //   p.setAttribute("class", "category-filter d-flex");
-  //   p.setAttribute("id", filters.category[i]);
-  //   p.innerText = filters.category[i];
-
-  //   const closeBtn = document.createElement("button");
-  //   closeBtn.setAttribute("class", "btn");
-  //   closeBtn.setAttribute("style", "position: absolute;right:0;top:0");
-  //   closeBtn.innerHTML = `
-  //   <i class="fa fa-close"></i>
-  //   `;
-  //   closeBtn.addEventListener("click", () => {
-  //     filters.category.splice(index, 1);
-  //     document.getElementById("data").innerHTML = "";
-  //     categoryList.innerHTML = "";
-  //     generateFilterPillsAndUpdateDOM(filters);
-  //     let filteredAdventures = filterFunction(adventuresCopy, filters);
-  //     addAdventureToDOM(filteredAdventures);
-  //     saveFiltersToLocalStorage(filters);
-  //   });
-
-  //   p.appendChild(closeBtn);
-
-  //   category_list.append(p);
-  // }
 
   const categoryList = document.getElementById("category-list");
   console.log(filters);
@@ -300,18 +224,6 @@ function generateFilterPillsAndUpdateDOM(filters) {
   });
 
 }
-
-// function closeFunction() {
-//   var closebtns = document.getElementsByClassName("btn-close");
-//   var i;
-
-//   for (i = 0; i < closebtns.length; i++) {
-//     closebtns[i].addEventListener("click", function () {
-//       this.parentElement.style.display = "none";
-//     });
-//   }
-// }
-
 function displayingMessageOnButtonClick() {
   alert("Welcome to Javascript Program")
 }

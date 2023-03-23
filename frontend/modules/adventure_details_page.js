@@ -4,27 +4,20 @@ import config from "../conf/index.js";
 function getAdventureIdFromURL(search) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Get the Adventure Id from the URL
-  console.log("search", search);
   // Place holder for functionality to work in the Stubs
   let urlParams = new URLSearchParams(search);
   let params = urlParams.get("adventure");
-  //console.log(params);
   return params;
 }
 //Implementation of fetch call with a paramterized input based on adventure ID
 async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Fetch the details of the adventure by making an API call
-  //console.log("fetch", adventureId);
-  ///adventures/detail?adventure=
-  //console.log(    config.backendEndpoint + "/adventures/detail?adventure=" + adventureId  );
   try {
     var details = await fetch(
       config.backendEndpoint + "/adventures/detail?adventure=" + adventureId
     );
     var data = await details.json();
-    //console.log(data);
-    // Place holder for functionality to work in the Stubs
     return data;
   } catch (err) {
     return null;
@@ -34,20 +27,8 @@ async function fetchAdventureDetails(adventureId) {
 //Implementation of DOM manipulation to add adventure details to DOM
 function addAdventureDetailsToDOM(adventure) {
   // TODO: MODULE_ADVENTURE_DETAILS
-  /*
-<div>
-  <h1 id="adventure-name"></h1>
-  <p style="font-size: 20px; color: #999" id="adventure-subtitle"></p>
-</div>
- <div class="row mb-3" id="photo-gallery"></div>
-
-<hr />
-<h5>About the Experience</h5>
-<div id="adventure-content"></div>
-*/
   //console.log(adventure);
   // 1. Add the details of the adventure to the HTML DOM
-
   var advenName = document.getElementById("adventure-name");
   advenName.innerHTML = adventure.name;
 
@@ -67,63 +48,12 @@ function addAdventureDetailsToDOM(adventure) {
   var p = document.createElement("p");
   p.innerHTML = adventure.content;
   advenContent.append(p);
-
-  // const name = adventure.name;
-  // const subtitle = adventure.subtitle;
-  // const images = adventure.images;
-  // const content = adventure.content;
-
-  // //Assigning h1
-  // const h1 = document.getElementById('adventure-name');
-  // h1.innerHTML = name;
-
-  // //subtitle
-  // const sub = document.getElementById('adventure-subtitle');
-  // sub.innerHTML = subtitle;
-
-  // //PhotoGallery
-  // const imgs = document.getElementById('photo-gallery');
-
-  // for(let i = 0; i < images.length; i++){
-  //   let imgTag = document.createElement('img');
-  //   imgTag.setAttribute('src', images[i]);//`${images[i]}`);
-  //   imgTag.setAttribute('class', `activity-card-image`);
-  //   imgs.appendChild(imgTag);
-
-  // }
-  // //Adventure Content
-  // const advContent = document.getElementById("adventure-content");
-  // advContent.innerHTML = content;
 }
 
 //Implementation of bootstrap gallery component
 function addBootstrapPhotoGallery(images) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the bootstrap carousel to show the Adventure images
-
-  /*
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-  */
 
   document.getElementById("photo-gallery").innerHTML = `
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -158,9 +88,7 @@ function addBootstrapPhotoGallery(images) {
 </div>
   `;
   let indicator = document.getElementById("carouselIndicator");
-  // <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-  // <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-  // <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
   for (let i = 0; i < images.length; i++) {
     let button = document.createElement("button");
     button.setAttribute("type", "button");
@@ -174,7 +102,6 @@ function addBootstrapPhotoGallery(images) {
     indicator.append(button);
   }
 
-  //=========image
   let imagediv = document.getElementById("carouselInner");
 
   for (let i = 0; i < images.length; i++) {
@@ -198,11 +125,9 @@ function conditionalRenderingOfReservationPanel(adventure) {
   // 1. If the adventure is already reserved, display the sold-out message.
   console.log(adventure.available);
   if (adventure.available) {
-    //hiding soldout panel
     const soldOutPanel = document.getElementById("reservation-panel-sold-out");
     soldOutPanel.setAttribute("style", "display: none");
 
-    //showing reservation panel
     const reservationPanel = document.getElementById(
       "reservation-panel-available"
     );
@@ -211,11 +136,9 @@ function conditionalRenderingOfReservationPanel(adventure) {
     const costPerHead = document.getElementById("reservation-person-cost");
     costPerHead.textContent = adventure.costPerHead;
   } else {
-    //showing soldout panel
     const soldOutPanel = document.getElementById("reservation-panel-sold-out");
     soldOutPanel.setAttribute("style", "display: block");
 
-    //hiding reservation panel
     const reservationPanel = document.getElementById(
       "reservation-panel-available"
     );

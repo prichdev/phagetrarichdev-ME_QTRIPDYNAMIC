@@ -29,19 +29,6 @@ function addCityToDOM(id, city, description, image) {
   // TODO: MODULE_CITIES
   // 1. Populate the City details and insert those details into the DOM
 
-  // <div class="col-lg-3 col-sm-6 mb-4 col-12">
-  //   <a href="pages/adventures/index.html">
-  //     <div class="tile">
-  //       <img src="assets/bengaluru.jpg" class="rounded" alt="Bengalore" />
-  //       <div class="tile-text text-center text-light d-flex flex-column justify-content-end">
-  //         <h4>Bengalore</h4>
-  //         <p>100+ places</p>
-  //       </div>
-  //     </div>
-  //   </a>
-  // </div>;
-  //========== my code
-
   var data_id = document.getElementById("data");
   var element = document.createElement("div");
 
